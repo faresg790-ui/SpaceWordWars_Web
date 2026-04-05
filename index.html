@@ -24,7 +24,7 @@
         #unity-container { 
             position: relative; 
             width: 100%; 
-            max-width: 760px; /* Forces vertical aspect ratio on desktop */
+            max-width: 760px; /* Fixed container width */
             height: 100vh; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
             background-color: #000000; 
@@ -39,39 +39,47 @@
 
         /* --- THE GOOGLE NATIVE OVERLAY --- */
         #google-overlay-container {
-            display: none; /* Hidden by default, toggled by Unity AuthManager */
+            display: none; 
             position: absolute;
             left: 50%;
-            top: 60%; /* Adjust this percentage to perfectly align with Unity UI */
+            top: 48%; /* CHANGED FROM 60% TO 48% TO MOVE IT HIGHER */
             transform: translate(-50%, -50%);
             z-index: 100;
         }
 
-        /* --- LOADING BAR CENTERING --- */
+        /* --- LOADING BAR CENTERING & TEXT --- */
         #unity-loading-bar { 
             position: absolute; 
             left: 50%; 
             top: 50%; 
             transform: translate(-50%, -50%); 
             display: none; 
+            text-align: center;
         }
         #unity-logo { 
             width: 154px; 
             height: 130px; 
             background: url('TemplateData/unity-logo-dark.png') no-repeat center; 
+            margin: 0 auto;
         }
         #unity-progress-bar-empty { 
             width: 141px; 
             height: 18px; 
             margin-top: 10px; 
-            margin-left: 6.5px; 
+            margin-left: auto;
+            margin-right: auto;
             background: url('TemplateData/progress-bar-empty-dark.png') no-repeat center; 
         }
         #unity-progress-bar-full { 
             width: 0%; 
             height: 18px; 
-            margin-top: 10px; 
             background: url('TemplateData/progress-bar-full-dark.png') no-repeat center; 
+        }
+        #unity-progress-text {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 8px;
         }
         
         /* --- ERROR BANNER --- */
@@ -114,6 +122,7 @@
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
+        <div id="unity-progress-text">0%</div>
       </div>
       
       <div id="unity-warning"> </div>
@@ -121,11 +130,8 @@
 
     <script>
       var canvas = document.querySelector("#unity-canvas");
-      
-      // GLOBAL UNITY INSTANCE
       var unityGameInstance = null;
 
-      // JSLIB OVERLAY CONTROL EXPORT
       window.ToggleGoogleOverlay = function(show) {
           var overlay = document.getElementById('google-overlay-container');
           if (overlay) {
@@ -172,13 +178,13 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
+          // UPDATE PROGRESS BAR
           document.querySelector("#unity-progress-bar-full").style.width = 100 * progress + "%";
+          // UPDATE PERCENTAGE TEXT
+          document.querySelector("#unity-progress-text").innerText = Math.floor(progress * 100) + "%";
         }).then((unityInstance) => {
-          
-          // CAPTURE THE INSTANCE FOR AUTH CALLBACKS
           unityGameInstance = unityInstance; 
           document.querySelector("#unity-loading-bar").style.display = "none";
-
         }).catch((message) => {
           alert(message);
         });
@@ -186,12 +192,9 @@
 
       document.body.appendChild(script);
 
-      // UNITY AUTH CALLBACK
       function handleGoogleLoginCallback(response) {
           if (unityGameInstance != null) {
-              // Hide HTML button on successful login
               window.ToggleGoogleOverlay(false);
-              // Send token payload to C# AuthManager
               unityGameInstance.SendMessage('AuthManager', 'OnWebGLAuthSuccess', response.credential);
           }
       }
