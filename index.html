@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SpaceWordWars</title>
     
     <script src="https://accounts.google.com/gsi/client?hl=ar" async defer></script>
 
     <style>
-        /* --- ZTYPE VERTICAL WRAPPER --- */
         body { 
             margin: 0; 
             padding: 0; 
@@ -20,13 +19,16 @@
             height: 100vh; 
             overflow: hidden; 
             font-family: sans-serif; 
+            /* Prevent pull-to-refresh and trackpad zooming */
+            touch-action: none; 
         }
 
         #unity-container { 
             position: relative; 
-            width: 100%; 
-            max-width: 670px; /* Tablet-style aspect ratio */
             height: 100vh; 
+            /* STRICT ASPECT RATIO LOCK (9:16) */
+            width: 56.25vh; 
+            max-width: 100vw; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
             background-color: #000000; 
         }
@@ -38,7 +40,6 @@
             outline: none; 
         }
 
-        /* --- THE GOOGLE NATIVE OVERLAY --- */
         #google-overlay-container {
             display: none; 
             position: absolute;
@@ -48,52 +49,29 @@
             z-index: 100;
         }
 
-        /* --- LOADING BAR CENTERING & TEXT --- */
         #unity-loading-bar { 
-            position: absolute; 
-            left: 50%; 
-            top: 50%; 
-            transform: translate(-50%, -50%); 
-            display: none; 
-            text-align: center;
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); 
+            display: none; text-align: center;
         }
         #unity-logo { 
-            width: 154px; 
-            height: 130px; 
+            width: 154px; height: 130px; margin: 0 auto;
             background: url('TemplateData/unity-logo-dark.png') no-repeat center; 
-            margin: 0 auto;
         }
         #unity-progress-bar-empty { 
-            width: 141px; 
-            height: 18px; 
-            margin-top: 10px; 
-            margin-left: auto;
-            margin-right: auto;
+            width: 141px; height: 18px; margin-top: 10px; margin-left: auto; margin-right: auto;
             background: url('TemplateData/progress-bar-empty-dark.png') no-repeat center; 
         }
         #unity-progress-bar-full { 
-            width: 0%; 
-            height: 18px; 
+            width: 0%; height: 18px; 
             background: url('TemplateData/progress-bar-full-dark.png') no-repeat center; 
         }
         #unity-progress-text {
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 8px;
+            color: white; font-size: 16px; font-weight: bold; margin-top: 8px;
         }
         
-        /* --- ERROR BANNER --- */
         #unity-warning { 
-            position: absolute; 
-            left: 50%; 
-            top: 5%; 
-            transform: translateX(-50%); 
-            background: white; 
-            padding: 10px; 
-            display: none; 
-            z-index: 99; 
-            text-align: center; 
+            position: absolute; left: 50%; top: 5%; transform: translateX(-50%); 
+            background: white; padding: 10px; display: none; z-index: 99; text-align: center; 
         }
     </style>
   </head>
