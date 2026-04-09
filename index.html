@@ -42,7 +42,7 @@
             display: none; 
             position: absolute;
             left: 50%;
-            top: 43%; /* Shifted from 48% to 43% */
+            top: 43%; 
             transform: translate(-50%, -50%);
             z-index: 100;
         }
@@ -110,17 +110,6 @@
       var canvas = document.querySelector("#unity-canvas");
       var unityGameInstance = null;
 
-      function requestFullScreen() {
-          var doc = window.document;
-          var docEl = doc.documentElement;
-          var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-          if (requestFullScreen && !doc.fullscreenElement) {
-              requestFullScreen.call(docEl);
-          }
-      }
-      document.body.addEventListener('touchstart', requestFullScreen, { once: true });
-      document.body.addEventListener('click', requestFullScreen, { once: true });
-
       window.ToggleGoogleOverlay = function(show) {
           var overlay = document.getElementById('google-overlay-container');
           if (overlay) {
@@ -148,12 +137,17 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/SpaceWordWars_Web.loader.js";
+      
+      // --- CRITICAL FIX: CACHE BUSTER ---
+      // This forces the browser to download the NEW game files every single time.
+      var cacheBuster = "?v=" + Date.now();
+      
+      var loaderUrl = buildUrl + "/SpaceWordWars_Web.loader.js" + cacheBuster;
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/SpaceWordWars_Web.data.unityweb",
-        frameworkUrl: buildUrl + "/SpaceWordWars_Web.framework.js.unityweb",
-        codeUrl: buildUrl + "/SpaceWordWars_Web.wasm.unityweb",
+        dataUrl: buildUrl + "/SpaceWordWars_Web.data.unityweb" + cacheBuster,
+        frameworkUrl: buildUrl + "/SpaceWordWars_Web.framework.js.unityweb" + cacheBuster,
+        codeUrl: buildUrl + "/SpaceWordWars_Web.wasm.unityweb" + cacheBuster,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "SpaceWordWars",
@@ -186,10 +180,8 @@
               try {
                   unityGameInstance.SendMessage('AuthManager', 'OnWebGLAuthSuccess', response.credential);
               } catch (err) {
-                  alert("⚠️ FATAL ERROR: Unity could not find a GameObject named 'AuthManager'. Please check your Unity Hierarchy! Error: " + err.message);
+                  alert("⚠️ FATAL ERROR: Unity could not find a GameObject named 'AuthManager'. Error: " + err.message);
               }
-          } else {
-              alert("⚠️ ERROR: Unity Game Instance is not fully loaded yet.");
           }
       }
     </script>
