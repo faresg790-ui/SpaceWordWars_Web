@@ -24,7 +24,6 @@
             touch-action: none; 
         }
 
-        /* --- Layout Wrapper --- */
         #master-layout {
             display: flex;
             justify-content: center; 
@@ -34,16 +33,16 @@
             position: relative; 
         }
 
-        /* --- Edge-to-Edge Ad Containers --- */
+        /* --- UPGRADED Edge-to-Edge Ad Containers --- */
         .side-ad-container {
-            width: 160px; 
-            height: 100vh; 
+            width: 300px; /* WIDER! Increased from 160px to 300px */
+            position: absolute; 
+            top: 0;
+            bottom: 0; /* TALLER! Forces absolute stretching to the very bottom pixel */
             background-color: #111; 
             display: flex;
             justify-content: center;
             align-items: center;
-            position: absolute; 
-            top: 0;
             overflow: hidden;
         }
 
@@ -55,8 +54,8 @@
             right: 0; 
         }
 
-        /* Hide side ads on narrow screens so they don't overlap your game */
-        @media (max-width: 1000px) {
+        /* Hide ads on laptops/tablets if the screen is too narrow so they don't block the game */
+        @media (max-width: 1200px) {
             .side-ad-container {
                 display: none !important;
             }
@@ -209,8 +208,6 @@
       var cacheBuster = "?v=" + Date.now();
       
       var loaderUrl = buildUrl + "/SpaceWordWars_Web.loader.js" + cacheBuster;
-      
-      // THE CRITICAL FIX IS ADDED TO THIS CONFIG OBJECT
       var config = {
         arguments: [],
         dataUrl: buildUrl + "/SpaceWordWars_Web.data.unityweb" + cacheBuster,
@@ -221,7 +218,7 @@
         productName: "SpaceWordWars",
         productVersion: "1.0",
         showBanner: unityShowBanner,
-        devicePixelRatio: window.devicePixelRatio, // <--- FORCES HIGH-DPI/RETINA RENDERING
+        devicePixelRatio: window.devicePixelRatio, /* HIGH DPI RENDERER */
       };
 
       document.querySelector("#unity-loading-bar").style.display = "block";
