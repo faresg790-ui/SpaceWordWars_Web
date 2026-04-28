@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="apple-touch-icon.png">
 
-    <script src="https://accounts.google.com/gsi/client?hl=ar" async defer></script>
+    <script src="https://accounts.google.com/gsi/client?hl=en" async defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574498512943405" crossorigin="anonymous"></script>
 
     <style>
@@ -26,7 +26,7 @@
             font-family: sans-serif; 
         }
 
-        /* 📱 شاشة حجب متصفحات الجوال 📱 */
+        /* 📱 MOBILE BLOCK SCREEN 📱 */
         #mobile-block-screen {
             display: none; 
             flex-direction: column;
@@ -76,14 +76,13 @@
             .side-ad-container { display: none !important; }
         }
 
-        /* 🚀 التوحيد الصارم للأبعاد بين متصفحات الحاسب 🚀 */
+        /* 🚀 STRICT ASPECT RATIO ENFORCEMENT 🚀 */
         #unity-container { 
             position: relative; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
             background-color: #000000; 
             z-index: 10; 
             
-            /* هذه القيم تجبر Edge و Chrome على رسم نفس الإطار تماماً */
             height: 100vh;
             max-height: 100vh;
             width: auto;
@@ -98,13 +97,21 @@
         #unity-progress-bar-empty { width: 100%; height: 20px; background-color: #222; border: 2px solid #555; border-radius: 10px; margin-top: 10px; overflow: hidden; }
         #unity-progress-bar-full { width: 0%; height: 100%; background-color: #00ffcc; border-radius: 8px; transition: width 0.1s ease; }
         #unity-progress-text { color: white; font-size: 18px; font-weight: bold; margin-top: 10px; font-family: sans-serif; display: flex; justify-content: center; gap: 5px; }
+        
+        #unity-progress-bytes {
+            color: #aaaaaa;
+            font-size: 13px;
+            margin-top: 8px;
+            font-family: monospace; 
+        }
+
         #unity-warning { position: absolute; left: 50%; top: 5%; transform: translateX(-50%); background: white; padding: 10px; display: none; z-index: 99; text-align: center; }
     </style>
   </head>
   <body>
     
     <div id="mobile-block-screen">
-        <h2>لتلعب اللعبة ، قم بتحميلها من متجر الالعاب ، او استخدم الحاسب الألي</h2>
+        <h2>To play the game, please download it from the App Store, or use a desktop computer.</h2>
     </div>
 
     <div id="master-layout">
@@ -117,12 +124,15 @@
           <canvas id="unity-canvas" tabindex="-1"></canvas>
           <div id="google-overlay-container">
               <div id="g_id_onload" data-client_id="803682442327-5stb9brbu6dlsfq2oklpl7bbml14pfsd.apps.googleusercontent.com" data-callback="handleGoogleLoginCallback" data-auto_prompt="false"></div>
-              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-locale="ar"></div>
+              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-locale="en"></div>
           </div>
+          
           <div id="unity-loading-bar">
-            <div id="unity-progress-text"><span>جاري التحميل...</span> <span dir="ltr" id="unity-percent">0%</span></div> 
+            <div id="unity-progress-text"><span>Loading...</span> <span id="unity-percent">0%</span></div> 
             <div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div>
+            <div id="unity-progress-bytes">0.00 MB / 0.00 MB</div>
           </div>
+
           <div id="unity-warning"> </div>
         </div>
 
@@ -133,7 +143,6 @@
     </div> 
 
     <script>
-      // 🛑 التحقق من نوع الجهاز 🛑
       function isMobileDevice() {
           return (typeof window.orientation !== "undefined") || 
                  (navigator.userAgent.indexOf('IEMobile') !== -1) || 
@@ -142,11 +151,9 @@
       }
 
       if (isMobileDevice()) {
-          // إخفاء إطار اللعبة وإظهار رسالة المنع
           document.getElementById('master-layout').style.display = 'none';
           document.getElementById('mobile-block-screen').style.display = 'flex';
       } else {
-          // تحميل المحرك فقط لأجهزة سطح المكتب
           document.addEventListener('wheel', function(e) { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
           document.addEventListener('keydown', function(e) { if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '0')) { e.preventDefault(); } }, { passive: false });
 
@@ -193,17 +200,21 @@
           var script = document.createElement("script");
           script.src = loaderUrl;
           script.onload = () => {
-            // 🛑 حل مشكلة تذبذب شريط التحميل 🛑
             let highestProgress = 0;
+            
+            // 🛑 Set the actual size of your Build folder here (in Megabytes) 🛑
+            const ESTIMATED_TOTAL_MB = 35.0; 
 
             createUnityInstance(canvas, config, (progress) => {
-              // تحديث النسبة فقط إذا كانت أعلى من النسبة السابقة
               if (progress > highestProgress) {
                   highestProgress = progress;
                   let percent = Math.floor(highestProgress * 100);
                   
                   document.querySelector("#unity-progress-bar-full").style.width = percent + "%";
                   document.querySelector("#unity-percent").innerText = percent + "%";
+
+                  let currentMB = (highestProgress * ESTIMATED_TOTAL_MB).toFixed(2);
+                  document.querySelector("#unity-progress-bytes").innerText = currentMB + " MB / " + ESTIMATED_TOTAL_MB.toFixed(2) + " MB";
               }
 
               if (progress >= 1.0) { document.querySelector("#unity-loading-bar").style.display = "none"; }
