@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="apple-touch-icon.png">
 
-    <script src="https://accounts.google.com/gsi/client?hl=en" async defer></script>
+    <script src="https://accounts.google.com/gsi/client?hl=ar" async defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574498512943405" crossorigin="anonymous"></script>
 
     <style>
@@ -26,7 +26,7 @@
             font-family: sans-serif; 
         }
 
-        /* 📱 MOBILE BLOCK SCREEN 📱 */
+        /* 📱 شاشة حجب متصفحات الجوال 📱 */
         #mobile-block-screen {
             display: none; 
             flex-direction: column;
@@ -76,7 +76,7 @@
             .side-ad-container { display: none !important; }
         }
 
-        /* 🚀 STRICT ASPECT RATIO ENFORCEMENT 🚀 */
+        /* 🚀 التوحيد الصارم للأبعاد بين متصفحات الحاسب 🚀 */
         #unity-container { 
             position: relative; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
@@ -111,7 +111,7 @@
   <body>
     
     <div id="mobile-block-screen">
-        <h2>To play the game, please download it from the App Store, or use a desktop computer.</h2>
+        <h2>لتلعب اللعبة ، قم بتحميلها من متجر الالعاب ، او استخدم الحاسب الألي</h2>
     </div>
 
     <div id="master-layout">
@@ -124,13 +124,13 @@
           <canvas id="unity-canvas" tabindex="-1"></canvas>
           <div id="google-overlay-container">
               <div id="g_id_onload" data-client_id="803682442327-5stb9brbu6dlsfq2oklpl7bbml14pfsd.apps.googleusercontent.com" data-callback="handleGoogleLoginCallback" data-auto_prompt="false"></div>
-              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-locale="en"></div>
+              <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-locale="ar"></div>
           </div>
           
           <div id="unity-loading-bar">
-            <div id="unity-progress-text"><span>Loading...</span> <span id="unity-percent">0%</span></div> 
+            <div id="unity-progress-text"><span>جاري التحميل...</span> <span dir="ltr" id="unity-percent">0%</span></div> 
             <div id="unity-progress-bar-empty"><div id="unity-progress-bar-full"></div></div>
-            <div id="unity-progress-bytes">0.00 MB / 0.00 MB</div>
+            <div id="unity-progress-bytes" dir="ltr">0.00 MB / 0.00 MB</div>
           </div>
 
           <div id="unity-warning"> </div>
@@ -202,8 +202,8 @@
           script.onload = () => {
             let highestProgress = 0;
             
-            // 🛑 Set the actual size of your Build folder here (in Megabytes) 🛑
-            const ESTIMATED_TOTAL_MB = 35.0; 
+            // 🛑 ضع الحجم الفعلي لمجلد الـ Build الخاص بك هنا (بالميغابايت) 🛑
+            const ESTIMATED_TOTAL_MB = 41.0; 
 
             createUnityInstance(canvas, config, (progress) => {
               if (progress > highestProgress) {
