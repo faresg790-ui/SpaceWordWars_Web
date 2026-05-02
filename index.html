@@ -4,30 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SpaceWordWars</title>
+    <title>SpaceWordWars - حرب الكلمات</title>
     
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="apple-touch-icon.png">
 
-    <!-- Google Sign-In Script (Arabic) -->
+    <!-- Google Sign-In Script -->
     <script src="https://accounts.google.com/gsi/client?hl=ar" async defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574498512943405" crossorigin="anonymous"></script>
 
     <style>
+        /* 🚀 CSS UPDATED TO ALLOW SCROLLING FOR SEO TEXT 🚀 */
         body, html { 
             margin: 0; 
             padding: 0; 
             background-color: #0a0a0a; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            overflow: hidden; 
+            /* Changed from overflow: hidden to allow vertical scrolling */
+            overflow-x: hidden; 
+            overflow-y: auto; 
             font-family: sans-serif; 
+            color: #cccccc;
         }
 
-        /* 📱 MOBILE BLOCK SCREEN 📱 */
         #mobile-block-screen {
             display: none; 
             flex-direction: column;
@@ -42,19 +41,14 @@
             box-sizing: border-box;
             z-index: 9999;
         }
-        #mobile-block-screen h2 { 
-            color: #00ffcc; 
-            margin-bottom: 10px; 
-            font-size: 24px;
-            line-height: 1.6;
-        }
+        #mobile-block-screen h2 { color: #00ffcc; margin-bottom: 10px; font-size: 24px; line-height: 1.6; }
 
         #master-layout {
             display: flex;
             justify-content: center; 
             align-items: center;
             width: 100vw;
-            height: 100vh;
+            height: 100vh; /* Keeps the game taking exactly one screen */
             position: relative; 
         }
 
@@ -77,13 +71,11 @@
             .side-ad-container { display: none !important; }
         }
 
-        /* 🚀 STRICT ASPECT RATIO ENFORCEMENT 🚀 */
         #unity-container { 
             position: relative; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
             background-color: #000000; 
             z-index: 10; 
-            
             height: 100vh;
             max-height: 100vh;
             width: auto;
@@ -97,27 +89,39 @@
         #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; width: 250px; z-index: 999; }
         #unity-progress-bar-empty { width: 100%; height: 20px; background-color: #222; border: 2px solid #555; border-radius: 10px; margin-top: 10px; overflow: hidden; }
         #unity-progress-bar-full { width: 0%; height: 100%; background-color: #00ffcc; border-radius: 8px; transition: width 0.1s ease; }
-        #unity-progress-text { color: white; font-size: 18px; font-weight: bold; margin-top: 10px; font-family: sans-serif; display: flex; justify-content: center; gap: 5px; }
-        
-        #unity-progress-bytes {
-            color: #aaaaaa;
-            font-size: 13px;
-            margin-top: 8px;
-            font-family: monospace; 
-        }
-
+        #unity-progress-text { color: white; font-size: 18px; font-weight: bold; margin-top: 10px; display: flex; justify-content: center; gap: 5px; }
+        #unity-progress-bytes { color: #aaaaaa; font-size: 13px; margin-top: 8px; font-family: monospace; }
         #unity-warning { position: absolute; left: 50%; top: 5%; transform: translateX(-50%); background: white; padding: 10px; display: none; z-index: 99; text-align: center; }
+
+        /* 🚀 NEW SEO CONTENT STYLES 🚀 */
+        #seo-content {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 20px 40px;
+            line-height: 1.8;
+            font-size: 18px;
+            text-align: right;
+            background-color: #111;
+            border-radius: 12px;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+        }
+        #seo-content h1, #seo-content h2, #seo-content h3 { color: #00ffcc; margin-top: 30px; }
+        #seo-content p { margin-bottom: 20px; }
+        #seo-content ul { padding-right: 20px; margin-bottom: 20px; }
+        #seo-content li { margin-bottom: 10px; }
+        .highlight { color: #ffffff; font-weight: bold; }
     </style>
   </head>
   <body>
     
-    <!-- 📱 MOBILE BLOCK MESSAGE 📱 -->
     <div id="mobile-block-screen">
         <h2>لتلعب اللعبة ، قم بتحميلها من متجر الالعاب ، او استخدم الحاسب الألي</h2>
     </div>
 
+    <!-- THE GAME VIEWPORT -->
     <div id="master-layout">
         <div class="side-ad-container side-ad-left">
+            <!-- Left AdSense -->
             <ins class="adsbygoogle" style="display:block; width:100%; height:100%;" data-ad-client="ca-pub-3574498512943405" data-ad-slot="1748652393" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
@@ -139,10 +143,33 @@
         </div>
 
         <div class="side-ad-container side-ad-right">
+            <!-- Right AdSense -->
             <ins class="adsbygoogle" style="display:block; width:100%; height:100%;" data-ad-client="ca-pub-3574498512943405" data-ad-slot="9970969372" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div> 
+
+    <!-- 🚀 SEO / ADSENSE CRAWLER CONTENT 🚀 -->
+    <div id="seo-content">
+        <h1>لعبة حرب الكلمات (Space Word Wars) - تحدي سرعة الطباعة</h1>
+        
+        <p>مرحباً بك في <span class="highlight">حرب الكلمات (Space Word Wars)</span>، اللعبة العربية الأقوى لتحدي سرعة الكتابة والطباعة على لوحة المفاتيح. في هذه اللعبة المليئة بالإثارة، ستتولى قيادة مركبة فضائية متطورة مهمتها تدمير الكلمات المتساقطة قبل أن تصطدم بك. كلما كنت أسرع وأدق في الكتابة، زادت فرصتك في البقاء وتحطيم الأرقام القياسية.</p>
+
+        <h2>كيفية اللعب</h2>
+        <p>تعتمد اللعبة على الدقة وسرعة البديهة. ستتساقط الكلمات العربية من أعلى الشاشة باتجاه مركبتك. دافع عن نفسك عن طريق كتابة الحروف المكونة لتلك الكلمات بالترتيب الصحيح. بمجرد كتابة الكلمة بشكل كامل، ستطلق مركبتك شعاع ليزر لتدميرها فوراً وتحصد النقاط.</p>
+        
+        <h2>مميزات اللعبة</h2>
+        <ul>
+            <li><span class="highlight">نظام المكافآت (Combos):</span> اكتب الكلمات بشكل متتالٍ وبدون أخطاء إملائية لتفعيل نظام المضاعفة (Streak) الذي يضاعف نقاطك ويمنحك الأفضلية.</li>
+            <li><span class="highlight">الكلمات الذهبية والسحرية:</span> ترقب الكلمات المميزة التي تمنحك دروعاً واقية (Shields)، مدافع خارقة (Super Cannons)، أو تقوم بإبطاء الزمن (Slow Wave) لمساعدتك في الموجات الصعبة.</li>
+            <li><span class="highlight">لوحة المتصدرين العالمية:</span> نافس آلاف اللاعبين! قم بتسجيل الدخول باستخدام حساب Google الخاص بك لتخليد اسمك في لوحة المتصدرين واحتلال المركز الأول بناءً على نقاطك، دقّتك، وأعلى سلسلة إجابات صحيحة (Max Streak).</li>
+            <li><span class="highlight">موجات متصاعدة الصعوبة:</span> كلما تقدمت في اللعبة، تزداد سرعة الكلمات وطولها، مما يتطلب مهارات طباعة استثنائية للبقاء على قيد الحياة.</li>
+        </ul>
+
+        <h2>لماذا تلعب حرب الكلمات؟</h2>
+        <p>هذه اللعبة ليست مجرد وسيلة ترفيه، بل هي أداة تعليمية وتدريبية رائعة لزيادة سرعة الطباعة باللغة العربية بطريقة ممتعة وتنافسية. تم تصميم اللعبة لتعمل بشكل مثالي على أجهزة الحاسب الآلي (Desktop) لضمان أفضل تجربة استخدام للوحة المفاتيح الحقيقية.</p>
+        <p>هل أنت مستعد للتحدي؟ ابدأ اللعب الآن وأثبت مهارتك في الطباعة!</p>
+    </div>
 
     <script>
       function isMobileDevice() {
@@ -154,6 +181,7 @@
 
       if (isMobileDevice()) {
           document.getElementById('master-layout').style.display = 'none';
+          document.getElementById('seo-content').style.display = 'none'; // Hide text on mobile
           document.getElementById('mobile-block-screen').style.display = 'flex';
       } else {
           document.addEventListener('wheel', function(e) { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
@@ -204,8 +232,8 @@
           script.onload = () => {
             let highestProgress = 0;
             
-            // 🛑 Set the actual size of your Build folder here (in Megabytes) 🛑
-            const ESTIMATED_TOTAL_MB = 41.0; 
+            // 🛑 ضع الحجم الفعلي لمجلد الـ Build الخاص بك هنا (بالميغابايت) 🛑
+            const ESTIMATED_TOTAL_MB = 35.0; 
 
             createUnityInstance(canvas, config, (progress) => {
               if (progress > highestProgress) {
@@ -218,7 +246,6 @@
                   let currentMB = (highestProgress * ESTIMATED_TOTAL_MB).toFixed(2);
                   document.querySelector("#unity-progress-bytes").innerText = currentMB + " MB / " + ESTIMATED_TOTAL_MB.toFixed(2) + " MB";
 
-                  // 🚀 THE 90% HANG FIX 🚀
                   if (progress >= 0.9 && progress < 1.0) {
                       document.querySelector("#unity-progress-text span:first-child").innerText = "جاري تهيئة المحرك وبدء اللعبة...";
                       document.querySelector("#unity-progress-bytes").innerText = ESTIMATED_TOTAL_MB.toFixed(2) + " MB / " + ESTIMATED_TOTAL_MB.toFixed(2) + " MB";
