@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="apple-touch-icon.png">
     <link rel="shortcut icon" href="apple-touch-icon.png">
 
+    <!-- Google Sign-In Script (Arabic) -->
     <script src="https://accounts.google.com/gsi/client?hl=ar" async defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3574498512943405" crossorigin="anonymous"></script>
 
@@ -26,7 +27,7 @@
             font-family: sans-serif; 
         }
 
-        /* 📱 شاشة حجب متصفحات الجوال 📱 */
+        /* 📱 MOBILE BLOCK SCREEN 📱 */
         #mobile-block-screen {
             display: none; 
             flex-direction: column;
@@ -76,7 +77,7 @@
             .side-ad-container { display: none !important; }
         }
 
-        /* 🚀 التوحيد الصارم للأبعاد بين متصفحات الحاسب 🚀 */
+        /* 🚀 STRICT ASPECT RATIO ENFORCEMENT 🚀 */
         #unity-container { 
             position: relative; 
             box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9); 
@@ -110,6 +111,7 @@
   </head>
   <body>
     
+    <!-- 📱 MOBILE BLOCK MESSAGE 📱 -->
     <div id="mobile-block-screen">
         <h2>لتلعب اللعبة ، قم بتحميلها من متجر الالعاب ، او استخدم الحاسب الألي</h2>
     </div>
@@ -202,8 +204,8 @@
           script.onload = () => {
             let highestProgress = 0;
             
-            // 🛑 ضع الحجم الفعلي لمجلد الـ Build الخاص بك هنا (بالميغابايت) 🛑
-            const ESTIMATED_TOTAL_MB = 41.0; 
+            // 🛑 Set the actual size of your Build folder here (in Megabytes) 🛑
+            const ESTIMATED_TOTAL_MB = 35.0; 
 
             createUnityInstance(canvas, config, (progress) => {
               if (progress > highestProgress) {
@@ -215,6 +217,12 @@
 
                   let currentMB = (highestProgress * ESTIMATED_TOTAL_MB).toFixed(2);
                   document.querySelector("#unity-progress-bytes").innerText = currentMB + " MB / " + ESTIMATED_TOTAL_MB.toFixed(2) + " MB";
+
+                  // 🚀 THE 90% HANG FIX 🚀
+                  if (progress >= 0.9 && progress < 1.0) {
+                      document.querySelector("#unity-progress-text span:first-child").innerText = "جاري تهيئة المحرك وبدء اللعبة...";
+                      document.querySelector("#unity-progress-bytes").innerText = ESTIMATED_TOTAL_MB.toFixed(2) + " MB / " + ESTIMATED_TOTAL_MB.toFixed(2) + " MB";
+                  }
               }
 
               if (progress >= 1.0) { document.querySelector("#unity-loading-bar").style.display = "none"; }
