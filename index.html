@@ -20,7 +20,6 @@
             margin: 0; 
             padding: 0; 
             background-color: #0a0a0a; 
-            /* Changed from overflow: hidden to allow vertical scrolling */
             overflow-x: hidden; 
             overflow-y: auto; 
             font-family: sans-serif; 
@@ -171,6 +170,12 @@
         <p>هل أنت مستعد للتحدي؟ ابدأ اللعب الآن وأثبت مهارتك في الطباعة!</p>
     </div>
 
+    <!-- 🚀 HTML FOOTER FOR GOOGLE BOTS & LEGAL LINKS 🚀 -->
+    <div id="site-footer" style="width: 100%; background-color: #0a0a0a; padding: 30px 0; display: flex; justify-content: center; gap: 40px; margin-top: 20px; margin-bottom: 20px;">
+        <a href="privacy.html" style="color: #00ffcc; text-decoration: none; font-size: 16px; font-family: sans-serif; padding: 10px 20px; border: 1px solid #00ffcc; border-radius: 5px; transition: 0.3s;">سياسة الخصوصية (Privacy Policy)</a>
+        <a href="mailto:faresg790@gmail.com" style="color: #00ffcc; text-decoration: none; font-size: 16px; font-family: sans-serif; padding: 10px 20px; border: 1px solid #00ffcc; border-radius: 5px; transition: 0.3s;">اتصل بنا (Contact Us)</a>
+    </div>
+
     <script>
       function isMobileDevice() {
           return (typeof window.orientation !== "undefined") || 
@@ -182,6 +187,7 @@
       if (isMobileDevice()) {
           document.getElementById('master-layout').style.display = 'none';
           document.getElementById('seo-content').style.display = 'none'; // Hide text on mobile
+          document.getElementById('site-footer').style.display = 'none'; // Hide footer on mobile
           document.getElementById('mobile-block-screen').style.display = 'flex';
       } else {
           document.addEventListener('wheel', function(e) { if (e.ctrlKey) { e.preventDefault(); } }, { passive: false });
