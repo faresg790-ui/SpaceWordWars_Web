@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="utf-8">
+    <meta name="spacewordwars-build" content="ship-bottom-20261018-production">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>SpaceWordWars - حرب الكلمات</title>
@@ -126,7 +127,7 @@
         </div>
 
         <div id="unity-container">
-          <canvas id="unity-canvas" tabindex="-1"></canvas>
+          <canvas id="unity-canvas" width="1350" height="1920" tabindex="-1"></canvas>
           <div id="google-overlay-container">
               <div id="g_id_onload" data-client_id="803682442327-5stb9brbu6dlsfq2oklpl7bbml14pfsd.apps.googleusercontent.com" data-callback="handleGoogleLoginCallback" data-auto_prompt="false"></div>
               <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-locale="ar"></div>
@@ -215,20 +216,21 @@
             updateBannerVisibility();
           }
 
-          var buildUrl = "Build";
-          var cacheBuster = "?v=" + Date.now();
-          var loaderUrl = buildUrl + "/SpaceWordWars_Web.loader.js" + cacheBuster;
+          var buildUrl = "Build/ship-bottom-20261018-production";
+          var cacheBuster = "?v=ship-bottom-20261018-production";
+          var loaderUrl = buildUrl + "/WebGL.loader.js" + cacheBuster;
           var config = {
             arguments: [],
-            dataUrl: buildUrl + "/SpaceWordWars_Web.data.unityweb" + cacheBuster,
-            frameworkUrl: buildUrl + "/SpaceWordWars_Web.framework.js.unityweb" + cacheBuster,
-            codeUrl: buildUrl + "/SpaceWordWars_Web.wasm.unityweb" + cacheBuster,
-            streamingAssetsUrl: "StreamingAssets",
+            dataUrl: buildUrl + "/WebGL.data.unityweb" + cacheBuster,
+            frameworkUrl: buildUrl + "/WebGL.framework.js.unityweb" + cacheBuster,
+            codeUrl: buildUrl + "/WebGL.wasm.unityweb" + cacheBuster,
+            streamingAssetsUrl: buildUrl + "/StreamingAssets",
             companyName: "DefaultCompany",
             productName: "SpaceWordWars",
             productVersion: "1.0",
             showBanner: unityShowBanner,
-            devicePixelRatio: window.devicePixelRatio, 
+            devicePixelRatio: window.devicePixelRatio,
+            matchWebGLToCanvasSize: false,
           };
 
           document.querySelector("#unity-loading-bar").style.display = "block";
@@ -239,7 +241,7 @@
             let highestProgress = 0;
             
             // 🛑 ضع الحجم الفعلي لمجلد الـ Build الخاص بك هنا (بالميغابايت) 🛑
-            const ESTIMATED_TOTAL_MB = 35.0; 
+            const ESTIMATED_TOTAL_MB = 94444160 / 1000000; 
 
             createUnityInstance(canvas, config, (progress) => {
               if (progress > highestProgress) {
